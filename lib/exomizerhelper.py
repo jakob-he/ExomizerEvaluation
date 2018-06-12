@@ -113,7 +113,7 @@ def outputranks(ranks):
         else:
             worse = worse + 1
 
-    print("First Rank:\t", first/len(ranks), "\n")
-    print("Best Ten:\t", bestten/len(ranks), "\n")
-    print("Best hundret:\t", besthundret/len(ranks), "\n")
-    print("worse:\t",worse/len(ranks))
+    print("Rank 1:\t", first/len(ranks), "\n")
+    print("Rank 2-10:\t", bestten/len(ranks), "\n")
+    print("Rank 11-100:\t", besthundret/len(ranks), "\n")
+    print("Rank 100+:\t",worse/len(ranks))
