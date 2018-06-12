@@ -8,7 +8,7 @@ import subprocess
 from argparse import ArgumentParser
 
 # own libraries
-from lib import exomizer, config, progressbar
+from lib import exomizerhelper, config, progressbar
 
 
 def parse_arguments():
@@ -26,10 +26,10 @@ def parse_arguments():
 
 def createanafile(file, config_data):
     if file.endswith("gz"):
-        jsonfile = exomizer.getjsonfile(
+        jsonfile = exomizerhelper.getjsonfile(
             file, config_data['directories']['json'])
         if jsonfile:
-            exomizer.createanalysisfile(os.path.join(config_data['directories']['vcf'], file), jsonfile, config_data['files']
+            exomizerhelper.createanalysisfile(os.path.join(config_data['directories']['vcf'], file), jsonfile, config_data['files']
                                         ['samplefile'], config_data['directories']['analysisfiles'], config_data['directories']['results'])
 
 
@@ -39,8 +39,8 @@ def main():
     # create analysisfiles for all vcf and json pairs 1KG
     if args.createfiles:
         # clear directories
-        exomizer.resetdir(config_data['directories']['analysisfiles'])
-        exomizer.resetdir(config_data['directories']['results'])
+        exomizerhelper.resetdir(config_data['directories']['analysisfiles'])
+        exomizerhelper.resetdir(config_data['directories']['results'])
 
         vcffiles = []
         # create anaylsis files for each vcf file
@@ -52,9 +52,8 @@ def main():
     # execute exomizer on batch file
     if args.exomizer:
         # create analysis batch file of all analysisfiles
-        batchfile = exomizer.createbatchanalysis(
+        batchfile = exomizerhelper.createbatchanalysis(
             config_data['directories']['analysisfiles'])
-        config_data['exomizer']['exomizerdir'] = "exomiser-cli-10.0.1"
         FNULL = open(os.devnull, 'w')
         print("Executing Exomizer...")
         subprocess.run(["java", "-Xms4g", "-Xmx8g", "-jar", config_data['exomizer']['exomizerdir'] + ".jar",
@@ -66,11 +65,11 @@ def main():
         print("Getting rank data")
         ranks = []
         for dir in os.listdir(config_data['directories']['results']):
-            ranks.append(exomizer.getrank(
+            ranks.append(exomizerhelper.getrank(
                 dir, config_data['directories']['json'], config_data['directories']['results']))
 
         # print ranks as percentages
-        exomizer.outputranks(ranks)
+        exomizerhelper.outputranks(ranks)
 
 
 if __name__ == '__main__':

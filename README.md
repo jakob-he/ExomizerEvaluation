@@ -20,8 +20,9 @@ wget  https://data.monarchinitiative.org/exomiser/latest/1802_phenotype.zip
 
 5. Create a new directory ```data``` in the exomizer directory and move the additional data files from step 2 into ```data```
 
-6. Add the following line to the ```application.properties``` file in the exomizer directory:
+6. Changed the following lines of ```application.properties``` in the exomizer directory:
 ```
+exomiser.data-directory= /home/jakob/Documents/PEDIA/ExomizerEvaluation/exomiser-cli-10.0.1/data #change this to your exomizer data directory (full path) 
 exomiser.hg19.data-version=1805
 ```
 7. Move annotated VCF files into the 1KG folder
