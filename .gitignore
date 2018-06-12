@@ -1,0 +1,31 @@
+*.vcf
+*.vcf.tbi
+*.tar.gz
+
+
+# python files
+__pycache__
+*.pyc
+
+# configuration files
+config.ini
+
+# exomizer data
+exomizer-cli-10.0.1/*
+
+# json files
+jsonsimulation/*
+
+# vcf files
+/1KG/*
+
+# results
+results/*
+testresults
+
+#analysisfiles
+anaylsis_files/*
+
+#exomizer logs
+logs
+
