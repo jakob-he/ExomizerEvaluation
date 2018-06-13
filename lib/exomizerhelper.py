@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 '''
-General helper function used to evaluate the exomizer performance.
+General helper functions used to evaluate the exomizer performance.
 '''
 # standard libraries
 import json
-import yaml
 import os
-import pandas
-import shutil
 import datetime
 import time
+import shutil
+
+#3rd party libraries
+import yaml
+import pandas
 
 def createanalysisfile(vcf, jsonfile ,analysissanmplefile, outputdir , resultdir):
     '''Creates and dumps an Exomizer analysis file.'''
@@ -74,8 +76,7 @@ def getrank(caseid,jsondir,resultdir):
             diseasegene = data['genomic_entries'][0]['variants']['gene']['gene_id']
         except KeyError:
             diseasegene = data['genomic_entries'][0]['gene']['gene_id']
-    except Exception: #Syntax differences TODO create try loops or a better solution
-        print(caseid)
+    except Exception:
         diseasegene = None
 
     #search for diseas gene in result data
@@ -110,7 +111,7 @@ def outputranks(ranks):
     #plot results
     first = 0
     bestten = 0
-    besthundret = 0
+    besthundred = 0
     worse = 0
     ranks = [rank for rank in ranks if rank is not None]
     for rank in ranks:
@@ -119,11 +120,11 @@ def outputranks(ranks):
         elif rank < 10:
             bestten = bestten + 1
         elif rank < 100:
-            besthundret = besthundret +1
+            besthundred = besthundred +1
         else:
             worse = worse + 1
 
     print("Rank 1:\t", first/len(ranks), "\n")
     print("Rank 2-10:\t", bestten/len(ranks), "\n")
-    print("Rank 11-100:\t", besthundret/len(ranks), "\n")
+    print("Rank 11-100:\t", besthundred/len(ranks), "\n")
     print("Rank 100+:\t",worse/len(ranks))

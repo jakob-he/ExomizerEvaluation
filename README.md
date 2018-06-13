@@ -1,7 +1,26 @@
 # ExomizerEvaluation
-Script collection used to evaluate the performance of Exomizer using JSON and VCF files.
+Script collection used to evaluate the performance of Exomizer.
+
+# General Workflow
+
+1. Exomizer analysis files are created using the sample structure file,VCF file and the HPO feature terms from a JSON file.
+2. Exomizer is executed using a batchfile with all analysis files from step 1. For each case the hundred highest ranking genes are computed. 
+3. For each case the rank of the disease gene is extracted from the results and the overall rank statistics are displayed.
 
 # Usage/Installation Linux
+
+The following packages are needed:
+
+```
+pandas
+yaml
+```
+
+They can be installed using the requirements.txt file:
+
+```
+pip3 install -r requirements.txt
+```
 
 1. Clone this repository
 ```
@@ -16,7 +35,7 @@ wget https://data.monarchinitiative.org/exomiser/latest/exomiser-cli-10.1.0-dist
 wget  https://data.monarchinitiative.org/exomiser/latest/1805_hg19.zip
 wget  https://data.monarchinitiative.org/exomiser/latest/1802_phenotype.zip 
 ```
-4. Move the exomizer to the cloned repository (replace the examplatory folder exomier-cli-10.0.1)
+4. Extract the Exomizer version to the cloned repository (replace the folder exomier-cli-10.0.1).
 
 5. Create a new directory ```data``` in the exomizer directory and move the additional data files from step 2 into ```data```
 
@@ -27,13 +46,11 @@ exomiser.hg19.data-version=1805
 ```
 7. Move annotated VCF files into the 1KG folder
 
-8. Move JSON files into json_simulation. The JSON files have to satisfy <b>one</b> of the following criteria:
-  - the disease gene is in ```['genomic_entries']['variants']['gene']['gene_id']```
-  - the disease gene is in ```['genomic_entries']['gene']['gene_id']```
+8. Move JSON files (old format) into json_simulation.`
 
 9. Adjust the directory information in ```config_SAMPLE``` if changed and rename it to ```config.ini```.
 
-10. Edit ```analysis_file_structure.yml``` to configure Exomizer execution.
+10. Edit ```analysis_file_structure.yml``` to configure Exomizer execution. The current version uses the Phenix priotization.
 
 10. Execute the evaluation.py script:
 ```
