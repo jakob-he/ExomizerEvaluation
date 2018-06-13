@@ -8,6 +8,8 @@ import yaml
 import os
 import pandas
 import shutil
+import datetime
+import time
 
 def createanalysisfile(vcf, jsonfile ,analysissanmplefile, outputdir , resultdir):
     '''Creates and dumps an Exomizer analysis file.'''
@@ -73,7 +75,8 @@ def getrank(caseid,jsondir,resultdir):
         except KeyError:
             diseasegene = data['genomic_entries'][0]['gene']['gene_id']
     except Exception: #Syntax differences TODO create try loops or a better solution
-        return None
+        print(caseid)
+        diseasegene = None
 
     #search for diseas gene in result data
     resultdir = os.path.join(resultdir,caseid)
@@ -87,10 +90,17 @@ def getrank(caseid,jsondir,resultdir):
         return rank.index[0]
 
 def resetdir(dir):
-    '''recursively deletes content of a directory'''
+    '''Compresses and saves the content of a directory'''
+    #compress current content
+    thispath = os.path.normpath(os.path.join(os.path.dirname( __file__ ), '..'))
+    timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+    dir = os.path.join(thispath,dir)
+    shutil.make_archive(os.path.join(dir,timestamp), 'zip', dir)
+    #delete current content
     for root, dirs, files in os.walk(dir):
         for f in files:
-            os.unlink(os.path.join(root, f))
+            if not f.endswith(".zip"):
+                os.unlink(os.path.join(root, f))
         for d in dirs:
             shutil.rmtree(os.path.join(root, d))
 

@@ -27,7 +27,7 @@ exomiser.hg19.data-version=1805
 ```
 7. Move annotated VCF files into the 1KG folder
 
-8. Move JSON files into json_simulation. The JSON files have to satisfy <b>one</b> of the follwing criteria:
+8. Move JSON files into json_simulation. The JSON files have to satisfy <b>one</b> of the following criteria:
   - the disease gene is in ```['genomic_entries']['variants']['gene']['gene_id']```
   - the disease gene is in ```['genomic_entries']['gene']['gene_id']```
 

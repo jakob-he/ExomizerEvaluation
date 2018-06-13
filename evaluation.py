@@ -65,8 +65,9 @@ def main():
         print("Getting rank data")
         ranks = []
         for dir in os.listdir(config_data['directories']['results']):
-            ranks.append(exomizerhelper.getrank(
-                dir, config_data['directories']['json'], config_data['directories']['results']))
+            if(dir != ".gitignore"):
+                ranks.append(exomizerhelper.getrank(
+                    dir, config_data['directories']['json'], config_data['directories']['results']))
 
         # print ranks as percentages
         exomizerhelper.outputranks(ranks)

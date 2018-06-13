@@ -76,34 +76,34 @@ analysis:
         #intervalFilter: {interval: 'chr10:123256200-123256300'}, 
         #failedVariantFilter: {},
         #genePanelFilter: {geneSymbols: ['POMP','SUMF1','JUP']},
-        hiPhivePrioritiser: {},
+        #hiPhivePrioritiser: {},
         #running the prioritiser followed by a priorityScoreFilter will remove genes
         #which are least likely to contribute to the phenotype defined in hpoIds, this will
         #dramatically reduce the time and memory required to analyse a genome.
         # 0.501 is a good compromise to select good phenotype matches and the best protein-protein interactions hits from hiPhive
-        priorityScoreFilter: {priorityType: HIPHIVE_PRIORITY, minPriorityScore: 0.501},
+        #priorityScoreFilter: {priorityType: PHENIX_PRIORITY, minPriorityScore: 0.501},
         #variantEffectFilter: {remove: [SYNONYMOUS_VARIANT]},
         #regulatoryFeatureFilter removes all non-regulatory non-coding variants over 20Kb from a known gene.
         #regulatoryFeatureFilter: {},
         #knownVariantFilter: {}, #removes variants represented in the database
         frequencyFilter: {maxFrequency: 2.0},
-        pathogenicityFilter: {keepNonPathogenic: true},
+        #pathogenicityFilter: {keepNonPathogenic: true},
         #inheritanceFilter and omimPrioritiser should always run AFTER all other filters have completed
         #they will analyse genes according to the specified modeOfInheritance above- UNDEFINED will not be analysed.
         inheritanceFilter: {},
         #omimPrioritiser isn't mandatory.
-        #omimPrioritiser: {}
+        #omimPrioritiser: {},
         #Other prioritisers: Only combine omimPrioritiser with one of these.
         #Don't include any if you only want to filter the variants.
         #hiPhivePrioritiser: {},
+        phenixPrioritiser: {}
         # or run hiPhive in benchmarking mode: 
         #hiPhivePrioritiser: {}
-        #phenixPrioritiser: {}
         #exomeWalkerPrioritiser: {seedGeneIds: [11111, 22222, 33333]}
     ]
 outputOptions:
     outputPassVariantsOnly: false
-    #numGenes options: 100 = all or specify a limit e.g. 500 for the first 500 results  
+    #numGenes options: 0 = all or specify a limit e.g. 500 for the first 500 results  
     numGenes: 100
     #outputPrefix options: specify the path/filename without an extension and this will be added
     # according to the outputFormats option. If unspecified this will default to the following: 
