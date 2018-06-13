@@ -22,6 +22,8 @@ They can be installed using the requirements.txt file:
 pip3 install -r requirements.txt
 ```
 
+Yaml can be installed using the instructions on: https://pyyaml.org/wiki/PyYAML
+
 1. Clone this repository
 ```
 git clone https://github.com/jakobhertzberg/ExomizerEvaluation
