@@ -9,20 +9,14 @@ Script collection used to evaluate the performance of Exomizer.
 
 # Usage/Installation Linux
 
-The following packages are needed:
-
-```
-pandas
-yaml
-```
-
-They can be installed using the requirements.txt file:
+To install the requirements run: 
 
 ```
 pip3 install -r requirements.txt
 ```
 
-Yaml can be installed using the instructions on: https://pyyaml.org/wiki/PyYAML
+Yaml which is also required can be installed using the instructions on: https://pyyaml.org/wiki/PyYAML
+
 
 1. Clone this repository
 ```
