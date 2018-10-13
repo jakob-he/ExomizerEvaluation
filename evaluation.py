@@ -39,8 +39,8 @@ def main():
     # create analysisfiles for all vcf and json pairs 1KG
     if args.createfiles:
         # clear directories
-        exomizerhelper.resetdir(config_data['directories']['analysisfiles'])
-        exomizerhelper.resetdir(config_data['directories']['results'])
+        exomizerhelper.resetdir(config_data['directories']['analysisfiles'],config_data['directories']['backup'])
+        exomizerhelper.resetdir(config_data['directories']['results'],config_data['directories']['backup'])
 
         vcffiles = []
         # create anaylsis files for each vcf file
@@ -54,10 +54,10 @@ def main():
         # create analysis batch file of all analysisfiles
         batchfile = exomizerhelper.createbatchanalysis(
             config_data['directories']['analysisfiles'])
-        FNULL = open(os.devnull, 'w')
+        FNULL = open("exomizer.log", 'w')
         print("Executing Exomizer...")
         subprocess.run(["java", "-Xms4g", "-Xmx8g", "-jar", config_data['exomizer']['exomizerdir'] + ".jar",
-                        "--analysis-batch", batchfile], cwd=config_data['exomizer']['exomizerdir'], stdout=FNULL, stderr=subprocess.STDOUT)
+                        "--analysis-batch", batchfile], cwd=config_data['exomizer']['exomizerdir'])
         print("Exomizer finished")
 
     # analyze results
@@ -65,7 +65,7 @@ def main():
         print("Getting rank data")
         ranks = []
         for dir in os.listdir(config_data['directories']['results']):
-            if(dir != ".gitignore"):
+            if(dir != ".gitignore" and not dir.endswith(".zip")):
                 ranks.append(exomizerhelper.getrank(
                     dir, config_data['directories']['json'], config_data['directories']['results']))
 

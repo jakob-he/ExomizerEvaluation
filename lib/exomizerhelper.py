@@ -90,13 +90,13 @@ def getrank(caseid,jsondir,resultdir):
     else:
         return rank.index[0]
 
-def resetdir(dir):
+def resetdir(dir,backupdir):
     '''Compresses and saves the content of a directory'''
     #compress current content
     thispath = os.path.normpath(os.path.join(os.path.dirname( __file__ ), '..'))
     timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-    dir = os.path.join(thispath,dir)
-    shutil.make_archive(os.path.join(dir,timestamp), 'zip', dir)
+    backupdir = os.path.join(thispath,backupdir)
+    shutil.make_archive(os.path.join(backupdir,timestamp), 'zip', base_dir=os.path.join(thispath,dir))
     #delete current content
     for root, dirs, files in os.walk(dir):
         for f in files:
@@ -124,7 +124,17 @@ def outputranks(ranks):
         else:
             worse = worse + 1
 
+
     print("Rank 1:\t", first/len(ranks), "\n")
     print("Rank 2-10:\t", bestten/len(ranks), "\n")
     print("Rank 11-100:\t", besthundred/len(ranks), "\n")
     print("Rank 100+:\t",worse/len(ranks))
+
+    accuracies = []
+    rank_names = []
+    for i in range(0,100):
+        accuracies.append(sum((1 for rank in ranks if rank <= i))/len(ranks))
+        rank_names.append(f'rank {i+1}')
+    results_df = pandas.DataFrame(data = {'accuracies':accuracies}, index = rank_names)
+    with open("accuracies.csv","w") as output:
+        results_df.to_csv(output)
